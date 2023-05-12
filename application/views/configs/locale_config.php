@@ -63,7 +63,8 @@
 					<?php echo form_dropdown('currency_decimals', array(
 						'0' => '0',
 						'1' => '1',
-						'2' => '2'
+						'2' => '2',
+						'3' => '3'
 					),
 					$this->config->item('currency_decimals'), array('class' => 'form-control input-sm'));
 					?>
@@ -106,7 +107,8 @@
 						'-1' => '-1',
 						'0' => '0',
 						'1' => '1',
-						'2' => '2'
+						'2' => '2',
+						'3' => '3'
 					),
 						$this->config->item('cash_decimals'), array('class' => 'form-control input-sm'));
 					?>
