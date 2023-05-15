@@ -14,10 +14,10 @@ jobs:
           version: 20.10.7
       - run: 
           command: php -v
+      # - run: 
+      #     command: docker-php-ext-enable xdebug
       - run: 
-          command: docker-php-ext-enable xdebug
-      - run: 
-          command: php -v
+          command: ls
       - run:
           command: |
             docker run --rm -v . jekkos/composer composer install
