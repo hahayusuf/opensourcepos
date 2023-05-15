@@ -6,7 +6,7 @@ orbs:
 jobs:
   build_and_push:
     docker:
-      - image: cimg/php:7-apache
+      - image: circleci/php:7-apache
     steps:
       - checkout
 
