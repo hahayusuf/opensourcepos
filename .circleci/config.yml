@@ -7,6 +7,8 @@ jobs:
   build_and_push:
     docker:
       - image: circleci/php:7-apache
+    resource_class: hahayusuf/dell
+    
     steps:
       - checkout
 
