@@ -1,26 +1,35 @@
-# Use the latest 2.1 version of CircleCI pipeline process engine.
-# See: https://circleci.com/docs/configuration-reference
 version: 2.1
 
-# Define a job to be invoked later in a workflow.
-# See: https://circleci.com/docs/configuration-reference/#jobs
+orbs:
+  docker: circleci/docker@2.2.0
+
 jobs:
-  say-hello:
-    # Specify the execution environment. You can specify an image from Docker Hub or use one of our convenience images from CircleCI's Developer Hub.
-    # See: https://circleci.com/docs/configuration-reference/#executor-job
+  build_and_push:
     docker:
-      - image: cimg/base:stable
-    # Add steps to the job
-    # See: https://circleci.com/docs/configuration-reference/#steps
+      - image: circleci/php:7.4-apache
     steps:
       - checkout
-      - run:
-          name: "Say hello"
-          command: "echo Hello, World!"
 
-# Orchestrate jobs using workflows
-# See: https://circleci.com/docs/configuration-reference/#workflows
+      - setup_remote_docker:
+          version: 20.10.7
+
+      - run:
+          name: Build Docker image
+          command: docker build -t hahayusuf/opensourcepos:${CIRCLE_SHA1} .
+          working_directory: Dockerfile
+
+      # - run:
+      #     name: Push Docker image to Docker Hub
+      #     command: |
+      #       docker login -u your-dockerhub-username -p your-dockerhub-password
+      #       docker push your-dockerhub-username/your-image-name:${CIRCLE_SHA1}
+
 workflows:
-  say-hello-workflow:
+  build-workflow:
     jobs:
-      - say-hello
+      - build_and_push:
+          context: docker-secrets
+          filters:
+            branches:
+              only: 
+                - master
