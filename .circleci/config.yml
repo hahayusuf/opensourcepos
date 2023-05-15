@@ -20,8 +20,8 @@ jobs:
           command: pwd
       - run:
           command: |
-            docker run --rm --mount 'type=bind,source=/home/circleci/project,target=/app' jekkos/composer composer install
-            docker run --rm --mount 'type=bind,source=/home/circleci/project,target=/app' jekkos/composer php bin/install.php translations develop
+            docker run --rm --mount 'type=bind,source=/home/circleci/project,target=/app' jekkos/composer mkdir /app && composer install
+            docker run --rm --mount 'type=bind,source=/home/circleci/project,target=/app' jekkos/composer mkdir /app && php bin/install.php translations develop
             sed -i "s/'\(dev\)'/'$rev'/g" application/config/config.php
             version=$(grep application_version application/config/config.php | sed "s/.*=\s'\(.*\)';/\1/g")
             echo "$version-$branch-$rev" 
