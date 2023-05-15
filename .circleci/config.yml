@@ -16,7 +16,6 @@ jobs:
       - run:
           name: Build Docker image
           command: docker build -t hahayusuf/opensourcepos:${CIRCLE_SHA1} .
-          working_directory: Dockerfile
 
       # - run:
       #     name: Push Docker image to Docker Hub
